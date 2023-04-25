@@ -1,3 +1,5 @@
+<h1>Registro de Salarios</h1>
+
 <table border= 1>
     <thead>
         <tr>
@@ -25,5 +27,6 @@
             </td>
         </tr>
         @endforeach
+        <a href="{{ url('salario/create') }}">CREAR NUEVO REGISTRO</a>
     </tbodyt
 </table>

@@ -40,7 +40,7 @@ class SalarioController extends Controller
      */
     public function show(string $id)
     {
-        
+      //
     }
 
     /**
@@ -48,7 +48,8 @@ class SalarioController extends Controller
      */
     public function edit(string $id)
     {
-        
+        $salario=Salario::findOrFail($id);
+        return view('salario.edit', compact('salario'));
     }
 
     /**
@@ -56,7 +57,9 @@ class SalarioController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        
+        $salarioData=request()->except(['_token', '_method']);
+        Salario::where('id', '=', $id)->update($salarioData);
+        return redirect('salario');
     }
 
     /**
@@ -64,6 +67,7 @@ class SalarioController extends Controller
      */
     public function destroy(string $id)
     {
-        
+        Salario::destroy($id);
+        return redirect('salario');
     }
 }
