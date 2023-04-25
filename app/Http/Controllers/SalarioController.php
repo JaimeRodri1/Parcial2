@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Salario;
 
 
 class SalarioController extends Controller
@@ -12,7 +13,8 @@ class SalarioController extends Controller
      */
     public function index()
     {
-        
+        $data['salarios'] = Salario::all();
+        return view('salario.index', $data);
     }
 
     /**
@@ -20,7 +22,7 @@ class SalarioController extends Controller
      */
     public function create()
     {
-        
+        return view('salario.create');
     }
 
     /**
@@ -28,7 +30,9 @@ class SalarioController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $salarioData = request()->except("_token");
+        Salario::insert($salarioData);
+        return redirect()->route('salario.index');
     }
 
     /**
