@@ -17,6 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('',function () {
+Route::resource('/empleados',function () {
     return view('empleados');
 });
