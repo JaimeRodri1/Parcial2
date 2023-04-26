@@ -21,6 +21,7 @@ class empleadosController extends Controller
     public function create()
     {
         //
+        
         return view('empleados.create');
     }
 
@@ -30,6 +31,24 @@ class empleadosController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'edad' => 'required',
+            'departamento' => 'required',
+        ]);
+
+        $empleado = new Empleado([
+            'nombre' => $request->get('nombre'),
+            'apellido' => $request->get('apellido'),
+            'edad' => $request->get('edad'),
+            'departamento' => $request->get('departamento'),
+        ]);
+
+        $empleado->save();
+
+      
+        return redirect('/empleados/' . $empleado->id);
     }
 
     /**
@@ -38,6 +57,9 @@ class empleadosController extends Controller
     public function show(string $id)
     {
         //
+        $empleado = Empleado::findOrFail($id);
+
+        return view('empleados.edit', compact('empleado'));
     }
 
     /**
@@ -46,6 +68,9 @@ class empleadosController extends Controller
     public function edit(string $id)
     {
         //
+        $empleado = Empleado::findOrFail($id);
+
+        return view('empleados.edit', compact('empleado'));
     }
 
     /**
@@ -54,6 +79,25 @@ class empleadosController extends Controller
     public function update(Request $request, string $id)
     {
         //
+     
+        $request->validate([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'edad' => 'required',
+            'departamento' => 'required',
+        ]);
+
+        $empleado = new Empleado([
+            'nombre' => $request->get('nombre'),
+            'apellido' => $request->get('apellido'),
+            'edad' => $request->get('edad'),
+            'departamento' => $request->get('departamento'),
+        ]);
+
+        $empleado->save();
+
+      
+        return redirect('/empleados/' . $empleado->id);
     }
 
     /**
@@ -62,6 +106,9 @@ class empleadosController extends Controller
     public function destroy(string $id)
     {
         //
-        return destroy('empleados');
+        $empleado = Empleado::findOrFail($id);
+        $empleado->delete();
+        
+        return redirect('/empleados');
     }
 }
